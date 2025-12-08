@@ -12,3 +12,54 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  courses   Course[]
+  orders    Order[]
+  createdAt DateTime @default(now())
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+  videos      Video[]
+  orders      Order[]
+  createdAt   DateTime @default(now())
+}
+
+model Video {
+  id        Int      @id @default(autoincrement())
+  title     String
+  url       String
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  courseId  Int
+  course    Course      @relation(fields: [courseId], references: [id])
+  status    OrderStatus
+  createdAt DateTime    @default(now())
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
