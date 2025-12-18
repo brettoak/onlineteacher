@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe, Get, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe, Get, Delete, NotFoundException } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Prisma } from '@prisma/client';
@@ -27,7 +27,7 @@ export class CoursesController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const course = await this.coursesService.findOne(id);
     if (!course) {
-      throw new Error('Course not found');
+      throw new NotFoundException(`Course with ID ${id} not found`);
     }
     return course;
   }
@@ -40,7 +40,11 @@ export class CoursesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    const course = await this.coursesService.findOne(id);
+    if (!course) {
+      throw new NotFoundException(`Course with ID ${id} not found`);
+    }
     return this.coursesService.remove(id);
   }
 

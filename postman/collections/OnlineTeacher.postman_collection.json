@@ -103,6 +103,77 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "courses",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "6543b438-275f-42c6-9df1-ec5c67b0bd60",
+            "exec": [
+              "console.log(pm.collectionVariables.get(\"access_token\")+\"\\r\\n ~:ok\")"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "823cf6d4-bc46-4260-ae6a-9fc49117369e",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "id": "ed28a8f6-056a-4375-b8ab-5fdadfc55d11",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "127.0.0.1:3000/users/profile",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "3000",
+          "path": [
+            "users",
+            "profile"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "auth": {
@@ -110,7 +181,7 @@
   },
   "variable": [
     {
-      "id": "9823abd9-d072-4de7-838b-e529406285db",
+      "id": "5980f467-316a-45c6-9605-943a73161422",
       "key": "access_token",
       "value": ""
     }
