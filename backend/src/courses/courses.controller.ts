@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe, Get, Delete } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Prisma } from '@prisma/client';
@@ -18,10 +18,30 @@ export class CoursesController {
     });
   }
 
+  @Get()
+  findAll() {
+    return this.coursesService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const course = await this.coursesService.findOne(id);
+    if (!course) {
+      throw new Error('Course not found');
+    }
+    return course;
+  }
+
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() data: Prisma.CourseUpdateInput) {
     return this.coursesService.update(id, data);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.coursesService.remove(id);
   }
 
   @UseGuards(JwtAuthGuard)
