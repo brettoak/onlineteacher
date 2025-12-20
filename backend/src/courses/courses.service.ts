@@ -4,7 +4,7 @@ import { Course, Prisma, Video } from '@prisma/client';
 
 @Injectable()
 export class CoursesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(data: Prisma.CourseCreateInput): Promise<Course> {
     return this.prisma.course.create({
@@ -14,6 +14,9 @@ export class CoursesService {
 
   async findAll(): Promise<Course[]> {
     return this.prisma.course.findMany({
+      where: {
+        deletedAt: null,
+      },
       include: {
         author: {
           select: {
@@ -29,7 +32,7 @@ export class CoursesService {
 
   async findOne(id: number): Promise<Course | null> {
     return this.prisma.course.findUnique({
-      where: { id },
+      where: { id, deletedAt: null },
       include: {
         author: {
           select: {
@@ -44,8 +47,11 @@ export class CoursesService {
   }
 
   async remove(id: number): Promise<Course> {
-    return this.prisma.course.delete({
+    return this.prisma.course.update({
       where: { id },
+      data: {
+        deletedAt: new Date(),
+      },
     });
   }
 

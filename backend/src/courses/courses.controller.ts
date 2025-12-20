@@ -50,12 +50,4 @@ export class CoursesController {
     return this.coursesService.remove(id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post(':id/videos')
-  addVideo(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() data: { title: string; url: string; videoDetail?: string },
-  ) {
-    return this.coursesService.addVideo(id, data);
-  }
 }

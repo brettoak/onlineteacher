@@ -35,6 +35,7 @@ model Course {
   videos      Video[]
   orders      Order[]
   createdAt   DateTime @default(now())
+  deletedAt   DateTime?
 }
 
 model Video {
