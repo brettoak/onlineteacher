@@ -2,6 +2,7 @@ import { Controller, Get, UseGuards, Request, Put, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Prisma } from '@prisma/client';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -12,7 +13,7 @@ export class UsersController {
     async getProfile(@Request() req: any) {
         const user = await this.usersService.findOne(req.user.email);
         if (!user) {
-             throw new Error('User not found');
+            throw new UnauthorizedException('User not found');
         }
         const { password, ...result } = user;
         return result;
