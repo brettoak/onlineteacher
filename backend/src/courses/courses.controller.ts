@@ -36,8 +36,8 @@ export class CoursesController {
 
   @UseGuards(JwtAuthGuard)
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() data: Prisma.CourseUpdateInput) {
-    return this.coursesService.update(id, data);
+  update(@Param('id', ParseIntPipe) id: number, @Body() createCourseDto: CreateCourseDto) {
+    return this.coursesService.update(id, createCourseDto);
   }
 
   @UseGuards(JwtAuthGuard)
