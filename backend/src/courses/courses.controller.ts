@@ -1,17 +1,19 @@
-import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe, Get, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, UseGuards, Request, ParseIntPipe, Get, Delete, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Prisma } from '@prisma/client';
+import { CreateCourseDto } from './create-course.dto';
 
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(private readonly coursesService: CoursesService) { }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Request() req, @Body() data: { title: string; description: string }) {
+  create(@Request() req, @Body() createCourseDto: CreateCourseDto) {
+
     return this.coursesService.create({
-      ...data,
+      ...createCourseDto,
       author: {
         connect: { id: req.user.userId },
       },
