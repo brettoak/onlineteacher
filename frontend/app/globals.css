@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Custom Brand Palette */
+  --berry: #AA4465;
+  --beige: #EDF0DA;
+  --khaki: #A89B8C;
+  --vanilla: #F0DFAD;
+  --toffee: #8F5C38;
 }
 
 @theme inline {
@@ -10,10 +17,18 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Brand Colors */
+  --color-berry: var(--berry);
+  --color-beige: var(--beige);
+  --color-khaki: var(--khaki);
+  --color-vanilla: var(--vanilla);
+  --color-toffee: var(--toffee);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Keep brand colors somewhat consistent or adjust if needed for dark mode */
     --background: #0a0a0a;
     --foreground: #ededed;
   }
