@@ -11,10 +11,10 @@
   "dependencies": {
     "autoprefixer": "^10.4.23",
     "axios": "^1.13.2",
-    "next": "^16.0.10",
+    "next": "^16.1.0",
     "postcss": "^8.5.6",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
