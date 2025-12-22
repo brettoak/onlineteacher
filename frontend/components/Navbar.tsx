@@ -29,12 +29,12 @@ export default function Navbar({ transparentOnTop = true }: NavbarProps) {
     const isTransparent = transparentOnTop && !isScrolled;
 
     const navClasses = `fixed w-full z-50 transition-all duration-500 ${isTransparent
-            ? 'bg-transparent py-6 text-white'
+            ? 'bg-transparent py-6 text-stone-800' // Changed to dark text for light background
             : 'bg-white/90 backdrop-blur-md py-4 text-stone-800 shadow-sm'
         }`;
 
     const registerButtonClasses = `px-5 py-2 rounded-full border transition-all font-semibold ${isTransparent
-            ? 'border-white hover:bg-white hover:text-stone-900'
+            ? 'border-stone-800 hover:bg-stone-800 hover:text-white' // Dark border for light bg
             : 'border-stone-800 hover:bg-stone-800 hover:text-white'
         }`;
 

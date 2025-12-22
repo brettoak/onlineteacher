@@ -55,21 +55,23 @@ export default function Home() {
       {/* Reusable Navbar */}
       <Navbar />
 
-      {/* Hero Section - Full Screen Image/Video Background */}
-      <section className="relative h-[85vh] w-full overflow-hidden bg-stone-900">
-        {/* Background Image Placeholder - Using a nice gradient/image placeholder */}
-        {/* Ideally this is: <video autoPlay loop muted className="object-cover w-full h-full opacity-60" src="/hero.mp4" /> */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-80" />
+      {/* Hero Section - Abstract Gradient & Learning Elements */}
+      <section className="relative h-[85vh] w-full overflow-hidden bg-beige">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-beige via-white/40 to-vanilla/20" />
 
-        {/* Optional Overlay Gradient for text readability if needed */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+        {/* Decorative Elements */}
+        <div className="absolute top-1/4 left-1/5 text-[10rem] font-serif text-berry/5 blur-sm select-none -translate-x-1/2 -translate-y-1/2 rotate-[-10deg]">Aa</div>
+        <div className="absolute bottom-1/4 right-1/5 text-[12rem] font-serif text-toffee/5 blur-sm select-none translate-x-1/3 -translate-y-1/4 rotate-[10deg]">Bb</div>
+        <div className="absolute top-32 right-32 w-24 h-24 bg-berry/5 rounded-full blur-xl" />
+        <div className="absolute bottom-32 left-32 w-48 h-48 bg-khaki/10 rounded-full blur-2xl" />
 
-        {/* Hero Text (Minimal) */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-4">
+        {/* Hero Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10">
+          <h1 className="text-5xl md:text-7xl font-sans font-light tracking-tight mb-6 text-stone-800">
             Learn English Naturally
           </h1>
-          <p className="text-lg md:text-xl font-light opacity-90 tracking-wide max-w-2xl">
+          <p className="text-xl md:text-2xl font-light text-stone-600 tracking-wide max-w-2xl">
             Immersive video courses for global learners.
           </p>
         </div>
