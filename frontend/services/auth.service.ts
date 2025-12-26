@@ -13,7 +13,7 @@ const AuthService = {
 
     // Helper to fetch current user profile if needed
     getProfile: async () => {
-        const response = await api.get('/auth/profile');
+        const response = await api.get('/users/profile');
         return response.data;
     }
 };
