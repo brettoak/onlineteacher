@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { useAuthStore } from '@/store/useAuthStore';
 
 // Create an Axios instance
 const api = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000', // Default to localhost if not set
+    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3000', // Default to localhost if not set
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -13,10 +14,10 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         // You can add auth tokens here in the future
-        // const token = useAuthStore.getState().token;
-        // if (token) {
-        //   config.headers.Authorization = `Bearer ${token}`;
-        // }
+        const token = useAuthStore.getState().token;
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
     },
     (error) => {
