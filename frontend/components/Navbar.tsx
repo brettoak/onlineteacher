@@ -58,7 +58,7 @@ export default function Navbar({ transparentOnTop = true }: NavbarProps) {
                 <div className="flex items-center gap-6 text-sm font-medium z-10">
                     {token ? (
                         <div className="flex items-center gap-4">
-                            <Link href="/dashboard" className="hover:opacity-70">Dashboard</Link>
+                            <Link href="/profile" className="hover:opacity-70">Profile</Link>
                             <button onClick={logout} className="hover:opacity-70">Logout</button>
                         </div>
                     ) : (

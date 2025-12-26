@@ -1,4 +1,4 @@
-import api from '../lib/axios';
+import api from '@/lib/axios';
 
 const AuthService = {
     login: async (email: string, password: string) => {
@@ -13,9 +13,8 @@ const AuthService = {
 
     // Helper to fetch current user profile if needed
     getProfile: async () => {
-        // Assuming there's a profile endpoint, otherwise we rely on what we have
-        // return api.get('/auth/profile');
-        return null;
+        const response = await api.get('/auth/profile');
+        return response.data;
     }
 };
 
