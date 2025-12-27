@@ -13,7 +13,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -34,6 +33,9 @@ model Course {
   author      User     @relation(fields: [authorId], references: [id])
   videos      Video[]
   orders      Order[]
+  price       Float
+  level       String
+  image       String
   createdAt   DateTime @default(now())
   deletedAt   DateTime?
 }
