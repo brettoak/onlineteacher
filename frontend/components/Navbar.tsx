@@ -50,7 +50,7 @@ export default function Navbar({ transparentOnTop = true }: NavbarProps) {
                 {/* Center: Links (Absolute Centered) */}
                 <div className="hidden md:flex absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 items-center gap-8 text-sm font-bold tracking-wide">
                     <Link href="/" className="hover:opacity-70 transition-opacity">Home</Link>
-                    <Link href="/resources" className="hover:opacity-70 transition-opacity">Courses</Link>
+                    <Link href="/courses" className="hover:opacity-70 transition-opacity">Courses</Link>
                     <Link href="/about" className="hover:opacity-70 transition-opacity">About</Link>
                 </div>
 
