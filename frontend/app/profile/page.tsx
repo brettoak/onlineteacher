@@ -17,12 +17,15 @@ interface UserProfile {
 
 export default function ProfilePage() {
     const router = useRouter();
-    const { token, logout } = useAuthStore();
+    const { token, logout, _hasHydrated } = useAuthStore();
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     useEffect(() => {
+        // Wait for hydration to complete before checking authentication
+        if (!_hasHydrated) return;
+
         if (!token) {
             router.push('/login');
             return;
@@ -45,7 +48,7 @@ export default function ProfilePage() {
         };
 
         fetchProfile();
-    }, [token, router, logout]);
+    }, [_hasHydrated, token, router, logout]);
 
     if (loading) {
         return (
