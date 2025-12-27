@@ -33,9 +33,9 @@ model Course {
   author      User     @relation(fields: [authorId], references: [id])
   videos      Video[]
   orders      Order[]
-  price       Float
-  level       String
-  image       String
+  price       Float @default(0)
+  level       String @default("")
+  image       String @default("")
   createdAt   DateTime @default(now())
   deletedAt   DateTime?
 }
