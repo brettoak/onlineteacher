@@ -1,102 +1,56 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import CourseCard from '@/components/CourseCard';
 import Link from 'next/link';
-
-// Mock Data for English Video Courses (Expanded)
-const ALL_COURSES = [
-  {
-    id: 1,
-    title: 'Business English Series',
-    instructor: 'Sarah Jenkins',
-    duration: '12h',
-    lectures: '45 Lessons',
-    price: '$29.99',
-    level: 'Advanced',
-    image: 'bg-stone-200'
-  },
-  {
-    id: 2,
-    title: 'IELTS Masterclass',
-    instructor: 'David Wilson',
-    duration: '8h',
-    lectures: '30 Lessons',
-    price: '$34.99',
-    level: 'Exam Prep',
-    image: 'bg-stone-300'
-  },
-  {
-    id: 3,
-    title: 'American Accent Training',
-    instructor: 'Emma Stone',
-    duration: '5h',
-    lectures: '20 Lessons',
-    price: '$19.99',
-    level: 'All Levels',
-    image: 'bg-stone-400'
-  },
-  {
-    id: 4,
-    title: 'Grammar Bootcamp',
-    instructor: 'John Doe',
-    duration: '6h',
-    lectures: '15 Lessons',
-    price: '$24.99',
-    level: 'Beginner',
-    image: 'bg-stone-200'
-  },
-  {
-    id: 5,
-    title: 'Conversational English',
-    instructor: 'Lucy Liu',
-    duration: '10h',
-    lectures: '25 Lessons',
-    price: '$21.99',
-    level: 'Intermediate',
-    image: 'bg-stone-300'
-  },
-  {
-    id: 6,
-    title: 'TOEFL Preparation',
-    instructor: 'Michael Brown',
-    duration: '15h',
-    lectures: '50 Lessons',
-    price: '$39.99',
-    level: 'Exam Prep',
-    image: 'bg-stone-400'
-  },
-  {
-    id: 7,
-    title: 'English for Travel',
-    instructor: 'Sophie Turner',
-    duration: '4h',
-    lectures: '12 Lessons',
-    price: '$14.99',
-    level: 'Beginner',
-    image: 'bg-stone-200'
-  },
-  {
-    id: 8,
-    title: 'Creative Writing in English',
-    instructor: 'James Bond',
-    duration: '7h',
-    lectures: '18 Lessons',
-    price: '$27.99',
-    level: 'Advanced',
-    image: 'bg-stone-300'
-  }
-];
+import CoursesService from '@/services/courses.service';
 
 const LEVELS = ['All', 'Beginner', 'Intermediate', 'Advanced', 'Exam Prep'];
 
 export default function CoursesPage() {
+    const [courses, setCourses] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
     const [selectedLevel, setSelectedLevel] = useState('All');
 
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const data = await CoursesService.getAll();
+                // Transform data to match UI requirements
+                const formattedCourses = data.map((course: any) => ({
+                    id: course.id,
+                    title: course.title,
+                    instructor: course.author.email.split('@')[0], // Use part of email as name
+                    duration: '10h', // Placeholder as backend doesn't have duration yet
+                    lectures: `${course.videos.length} Lessons`,
+                    price: `$${course.price}`,
+                    level: course.level || 'All Levels',
+                    image: course.image || 'bg-stone-200', // Fallback color
+                    description: course.description
+                }));
+                setCourses(formattedCourses);
+            } catch (error) {
+                console.error('Failed to fetch courses:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCourses();
+    }, []);
+
     const filteredCourses = selectedLevel === 'All' 
-        ? ALL_COURSES 
-        : ALL_COURSES.filter(course => course.level === selectedLevel);
+        ? courses 
+        : courses.filter(course => course.level === selectedLevel);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-white font-sans text-stone-800 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-stone-800"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-white font-sans text-stone-800">
